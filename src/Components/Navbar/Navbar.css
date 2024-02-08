@@ -1,0 +1,26 @@
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.4rem;
+  background: rgba(153, 232, 62, 0.5);
+}
+
+.left {
+  display: flex;
+  gap: 5rem;
+  flex-grow: 1;
+}
+
+.right {
+  display: flex;
+  flex-grow: 2;
+  gap: 4rem;
+  justify-content: center;
+}
+
+nav a:link,
+a:visited {
+  color: black !important;
+  text-decoration: none;
+}
