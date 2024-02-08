@@ -25,7 +25,7 @@ const Navbar = (props: Props) => {
         </div>
         <div>
           <div className="hover:text-darkBlue">
-            <Link to={"/international"}>International</Link>
+            <Link to={"/countries"}>Countries</Link>
           </div>
         </div>
         <div>

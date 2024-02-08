@@ -6,6 +6,7 @@ import ClubsPage from "../Pages/ClubsPage/ClubsPage";
 import InternationalPage from "../Pages/InternationalPage/InternationalPage";
 import App from "../App";
 import ClubDetailsPage from "../Pages/ClubDetailsPage/ClubDetailsPage";
+import InternationalDetailsPage from "../Pages/InternationalDetailsPage/InternationalDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -16,8 +17,9 @@ export const router = createBrowserRouter([
       { path: "login", element: <LoginPage /> },
       { path: "search", element: <SearchPage /> },
       { path: "clubs", element: <ClubsPage /> },
-      { path: "clubs/:ticker", element: <ClubDetailsPage /> },
-      { path: "international", element: <InternationalPage /> },
+      { path: "clubs/:clubId", element: <ClubDetailsPage /> },
+      { path: "countries", element: <InternationalPage /> },
+      { path: "countries/:countryId", element: <InternationalDetailsPage /> },
       // {
       //   path: "clubs/:ticker",
       //   element: <ClubsPage />,
