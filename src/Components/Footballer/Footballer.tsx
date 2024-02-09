@@ -11,7 +11,7 @@ const Footballer = (props: Props) => {
       <p>{props.footballer.firstName}</p>
       <p>{props.footballer.lastName}</p>
       <p>{props.footballer.аge}</p>
-      <p>{props.footballer.country.name}</p>
+      <p>{props.footballer.country?.name}</p>
     </Card>
   );
 };

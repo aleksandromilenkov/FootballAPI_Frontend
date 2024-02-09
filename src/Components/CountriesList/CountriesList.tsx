@@ -5,7 +5,7 @@ type Props = {
   countries: any[];
 };
 
-const InternationalList = (props: Props) => {
+const CountriesList = (props: Props) => {
   return (
     <div>
       InternationalList
@@ -22,4 +22,4 @@ const InternationalList = (props: Props) => {
   );
 };
 
-export default InternationalList;
+export default CountriesList;
