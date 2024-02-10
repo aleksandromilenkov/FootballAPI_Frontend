@@ -13,8 +13,8 @@ const CountriesList = (props: Props) => {
         <p>No countries found.</p>
       ) : (
         <div className="displayedClubs">
-          {props.countries.map((country) => (
-            <Country country={country} />
+          {props.countries.map((country, idx) => (
+            <Country key={idx} country={country} />
           ))}
         </div>
       )}

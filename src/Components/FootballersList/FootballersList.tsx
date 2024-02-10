@@ -3,7 +3,7 @@ import Footballer from "../Footballer/Footballer";
 import "./FootballersList.css";
 
 type Props = {
-  footballers: [];
+  footballers: any[];
 };
 
 const FootballersList = (props: Props) => {
