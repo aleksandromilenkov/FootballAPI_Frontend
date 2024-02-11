@@ -10,9 +10,9 @@ const Club = (props: Props) => {
   return (
     <Card>
       <p>{props.club.name}</p>
-      <div className="button">
-        <Link to={`/clubs/${props.club.id}`}>View Club</Link>
-      </div>
+      <Link to={`/clubs/${props.club.id}`}>
+        <div className="button">View Club</div>
+      </Link>
     </Card>
   );
 };

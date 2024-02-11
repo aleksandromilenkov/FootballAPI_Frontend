@@ -10,9 +10,9 @@ const Country = (props: Props) => {
   return (
     <Card>
       <p>{props.country.name}</p>
-      <div className="button">
-        <Link to={`/countries/${props.country.id}`}>View Country</Link>
-      </div>
+      <Link to={`/countries/${props.country.id}`}>
+        <div className="button">View Country</div>
+      </Link>
     </Card>
   );
 };

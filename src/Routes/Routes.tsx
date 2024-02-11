@@ -7,6 +7,7 @@ import InternationalPage from "../Pages/InternationalPage/InternationalPage";
 import App from "../App";
 import ClubDetailsPage from "../Pages/ClubDetailsPage/ClubDetailsPage";
 import InternationalDetailsPage from "../Pages/InternationalDetailsPage/InternationalDetailsPage";
+import FootballerDetailsPage from "../Pages/FootballerDetailsPage/FootballerDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: "clubs/:clubId", element: <ClubDetailsPage /> },
       { path: "countries", element: <InternationalPage /> },
       { path: "countries/:countryId", element: <InternationalDetailsPage /> },
+      { path: "footballers/:footballerId", element: <FootballerDetailsPage /> },
       // {
       //   path: "clubs/:ticker",
       //   element: <ClubsPage />,
