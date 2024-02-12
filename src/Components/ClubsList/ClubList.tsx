@@ -4,6 +4,7 @@ import "./ClubList.css";
 
 type Props = {
   clubs: any[];
+  onDeleteClubHandler?: (clubs: any[]) => {};
 };
 // const clubs = [
 //   { name: "Arsenal", country: "England", id: 1 },
@@ -16,7 +17,11 @@ const ClubList = (props: Props) => {
       ClubList
       <div className="displayedClubs">
         {props.clubs.map((club, idx) => (
-          <Club club={club} key={idx} />
+          <Club
+            club={club}
+            key={idx}
+            onDeleteClubHandler={props.onDeleteClubHandler!}
+          />
         ))}
       </div>
     </div>

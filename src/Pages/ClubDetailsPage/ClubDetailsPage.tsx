@@ -52,28 +52,7 @@ const ClubDetailsPage = (props: Props) => {
     });
     console.log(updatedClub);
   };
-  const onCreateClub = async (e: any) => {
-    e.preventDefault();
-    console.log(e.target.country.value!);
-    console.log(e.target.name.value);
-    console.log(e.target.league.value);
-    const countrySelected = await axios.get<any, any>(
-      `https://localhost:7019/api/country?name=${e.target.country.value}`
-    );
-    console.log(countrySelected);
-    console.log(countrySelected.data[0].id);
-    const createdClub = await axios({
-      method: "post",
-      url: `https://localhost:7019/api/club`,
-      headers: { "Content-Type": "application/json" },
-      data: {
-        name: e.target.name.value,
-        league: League[e.target.league.value],
-        countryId: countrySelected.data[0].id,
-      },
-    });
-    console.log(createdClub);
-  };
+
   return (
     <div>
       ClubDetailsPage
@@ -119,45 +98,7 @@ const ClubDetailsPage = (props: Props) => {
               <button type="submit">Update</button>
             </form>
           </div>
-          <div className="createClub">
-            <form action="" onSubmit={onCreateClub}>
-              <div className="formField">
-                <label htmlFor="name">Club Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  required
-                  placeholder="Club Name"
-                />
-              </div>
-              <div className="formField">
-                <label htmlFor="league">Pick League</label>
-                <select
-                  name="league"
-                  id="league"
-                  defaultValue={League[club.league]}
-                >
-                  {options.map((option, index) => {
-                    return <option key={index}>{option}</option>;
-                  })}
-                </select>
-              </div>
-              <div className="formField">
-                <label htmlFor="country">Pick Country</label>
-                <select
-                  name="country"
-                  id="country"
-                  defaultValue={club.country?.name}
-                >
-                  {countries.map((country: any, index: number) => {
-                    return <option key={index}>{country.name}</option>;
-                  })}
-                </select>
-              </div>
-              <button type="submit">Create</button>
-            </form>
-          </div>
+
           <button>Update The Club</button>
           <button>Create New Club</button>
           <button>Delete The Club</button>

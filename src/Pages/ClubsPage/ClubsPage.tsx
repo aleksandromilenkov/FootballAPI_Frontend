@@ -13,11 +13,17 @@ const options = Object.values(League).filter(
 const ClubsPage = (props: Props) => {
   const [clubs, setClubs] = useState<any[]>([]);
   const [error, setError] = useState<boolean>(false);
+  const [countries, setCountries] = useState<any>([]);
   useEffect(() => {
     const getClubsInit = async () => {
       document.title = "Football App - Clubs";
       const data = await axios.get<any[]>(`https://localhost:7019/api/club`);
       setClubs(data.data);
+      const countries = await axios.get<any>(
+        `https://localhost:7019/api/country/`
+      );
+      console.log(countries);
+      setCountries(countries.data);
       setError(false);
     };
     try {
@@ -90,6 +96,38 @@ const ClubsPage = (props: Props) => {
     setError(false);
     console.log(error);
   };
+  const onCreateClub = async (e: any) => {
+    e.preventDefault();
+    console.log(e.target.country.value!);
+    console.log(e.target.name.value);
+    console.log(e.target.league.value);
+    const countrySelected = await axios.get<any, any>(
+      `https://localhost:7019/api/country?name=${e.target.country.value}`
+    );
+    console.log(countrySelected);
+    console.log(countrySelected.data[0].id);
+    const createdClub = await axios({
+      method: "post",
+      url: `https://localhost:7019/api/club`,
+      headers: { "Content-Type": "application/json" },
+      data: {
+        name: e.target.name.value,
+        league: League[e.target.league.value],
+        countryId: countrySelected.data[0].id,
+      },
+    });
+    console.log(createdClub);
+    const allClubs = await axios({
+      method: "get",
+      url: `https://localhost:7019/api/club`,
+      headers: { "Content-Type": "application/json" },
+    });
+    setClubs(allClubs.data);
+  };
+
+  const onDeleteClubHandler = async (clubs: any) => {
+    setClubs(clubs);
+  };
   return (
     <div>
       ClubsPage
@@ -133,8 +171,43 @@ const ClubsPage = (props: Props) => {
         </div>
         <button type="submit">Search Club</button>
       </form>
+      {countries.length !== 0 && (
+        <div className="createClub">
+          <form action="" onSubmit={onCreateClub}>
+            <div className="formField">
+              <label htmlFor="name">Club Name</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                required
+                placeholder="Club Name"
+              />
+            </div>
+            <div className="formField">
+              <label htmlFor="league">Pick League</label>
+              <select name="league" id="league" defaultValue={League[0]}>
+                {options.map((option, index) => {
+                  return <option key={index}>{option}</option>;
+                })}
+              </select>
+            </div>
+            <div className="formField">
+              <label htmlFor="country">Pick Country</label>
+              <select name="country" id="country" defaultValue={countries[0]}>
+                {countries.map((country: any, index: number) => {
+                  return <option key={index}>{country.name}</option>;
+                })}
+              </select>
+            </div>
+            <button type="submit">Create</button>
+          </form>
+        </div>
+      )}
       {error && <p>No club found in the database with that search data</p>}
-      {!error && <ClubList clubs={clubs} />}
+      {!error && (
+        <ClubList clubs={clubs} onDeleteClubHandler={onDeleteClubHandler} />
+      )}
     </div>
   );
 };

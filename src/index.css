@@ -9,3 +9,8 @@
   padding: 1rem 0.5rem;
   cursor: pointer;
 }
+
+.deleteButton {
+  background-color: crimson;
+  border: 1px solid rgb(30, 0, 0);
+}
