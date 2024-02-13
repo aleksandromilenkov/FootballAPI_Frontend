@@ -40,7 +40,7 @@ const ClubDetailsPage = (props: Props) => {
     );
     console.log(countrySelected);
     console.log(countrySelected.data[0].id);
-    const updatedClub = await axios({
+    await axios({
       method: "put",
       url: `https://localhost:7019/api/club/${clubId}`,
       headers: { "Content-Type": "application/json" },
@@ -50,7 +50,12 @@ const ClubDetailsPage = (props: Props) => {
         countryId: countrySelected.data[0].id,
       },
     });
-    console.log(updatedClub);
+    const updatedClub = await axios({
+      method: "get",
+      url: `https://localhost:7019/api/club/${clubId}`,
+      headers: { "Content-Type": "application/json" },
+    });
+    setClub(updatedClub.data);
   };
 
   return (
@@ -100,8 +105,6 @@ const ClubDetailsPage = (props: Props) => {
           </div>
 
           <button>Update The Club</button>
-          <button>Create New Club</button>
-          <button>Delete The Club</button>
           <div>
             <h1>{club.name}</h1>
             <h4>{League[club.league]}</h4>
