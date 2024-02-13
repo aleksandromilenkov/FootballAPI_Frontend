@@ -30,6 +30,11 @@ const Navbar = (props: Props) => {
         </div>
         <div>
           <div className="hover:text-darkBlue">
+            <Link to={"/createFootballer"}>Create Footballer</Link>
+          </div>
+        </div>
+        <div>
+          <div className="hover:text-darkBlue">
             <Link to={"/login"}>Login</Link>
           </div>
         </div>

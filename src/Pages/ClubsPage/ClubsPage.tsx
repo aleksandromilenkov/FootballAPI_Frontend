@@ -142,7 +142,7 @@ const ClubsPage = (props: Props) => {
             type="text"
             name="country"
             id="country"
-            placeholder="Country Name"
+            placeholder="Club Name"
           />
         </div>
         <div className="formField">
@@ -206,7 +206,11 @@ const ClubsPage = (props: Props) => {
       )}
       {error && <p>No club found in the database with that search data</p>}
       {!error && (
-        <ClubList clubs={clubs} onDeleteClubHandler={onDeleteClubHandler} />
+        <ClubList
+          isOnSearchPage={false}
+          clubs={clubs}
+          onDeleteClubHandler={onDeleteClubHandler}
+        />
       )}
     </div>
   );

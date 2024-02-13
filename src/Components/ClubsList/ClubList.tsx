@@ -5,6 +5,7 @@ import "./ClubList.css";
 type Props = {
   clubs: any[];
   onDeleteClubHandler?: (clubs: any[]) => {};
+  isOnSearchPage: boolean;
 };
 // const clubs = [
 //   { name: "Arsenal", country: "England", id: 1 },
@@ -20,6 +21,7 @@ const ClubList = (props: Props) => {
           <Club
             club={club}
             key={idx}
+            isOnSearchPage={props.isOnSearchPage}
             onDeleteClubHandler={props.onDeleteClubHandler!}
           />
         ))}

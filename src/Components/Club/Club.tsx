@@ -6,6 +6,7 @@ import axios from "axios";
 type Props = {
   club: any;
   onDeleteClubHandler: (clubs: any[]) => {};
+  isOnSearchPage: boolean;
 };
 
 const Club = (props: Props) => {
@@ -26,13 +27,15 @@ const Club = (props: Props) => {
       <Link to={`/clubs/${props.club.id}`}>
         <div className="button">View Club</div>
       </Link>
-      <div
-        className="button deleteButton"
-        onClick={onDeleteClub}
-        data-uniqueid={props.club.id}
-      >
-        Delete Club
-      </div>
+      {!props.isOnSearchPage && (
+        <div
+          className="button deleteButton"
+          onClick={onDeleteClub}
+          data-uniqueid={props.club.id}
+        >
+          Delete Club
+        </div>
+      )}
     </Card>
   );
 };

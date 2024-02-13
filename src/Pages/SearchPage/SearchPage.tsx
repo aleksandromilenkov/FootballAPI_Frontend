@@ -67,7 +67,7 @@ const SearchPage = (props: Props) => {
           <button type="submit">Search Footballer</button>
         </form>
       </div>
-      {clubs.length !== 0 && <ClubList clubs={clubs} />}
+      {clubs.length !== 0 && <ClubList isOnSearchPage={true} clubs={clubs} />}
       {footballers.length !== 0 && (
         <FootballersList footballers={footballers} />
       )}
