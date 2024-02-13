@@ -4,6 +4,7 @@ import axios from "axios";
 import { Continent } from "../../Helpers/EnumTypes";
 import Spinner from "../../Components/Spinner/Spinner";
 import { toast } from "react-toastify";
+import { count } from "console";
 
 type Props = {};
 const options = Object.values(Continent).filter(
@@ -77,6 +78,30 @@ const InternationalPage = (props: Props) => {
     setError(false);
     console.log(error);
   };
+  const onDeleteCountry = async (countries: any) => {
+    setCountries(countries);
+  };
+
+  const onCreateCountry = async (e: any) => {
+    e.preventDefault();
+    const createdCountry = await axios({
+      method: "post",
+      url: `https://localhost:7019/api/country`,
+      headers: { "Content-Type": "application/json" },
+      data: {
+        name: e.target.name.value,
+        continent: Continent[e.target.continent.value],
+        wcWon: e.target.wcwon.value,
+      },
+    });
+    console.log(createdCountry);
+    const allCountries = await axios({
+      method: "get",
+      url: `https://localhost:7019/api/country`,
+      headers: { "Content-Type": "application/json" },
+    });
+    setCountries(allCountries.data);
+  };
   return (
     <div>
       InternationalPage
@@ -123,9 +148,48 @@ const InternationalPage = (props: Props) => {
         </div>
         <button type="submit">Search Country</button>
       </form>
+      <div className="createClub">
+        <form action="" onSubmit={onCreateCountry}>
+          <div className="formField">
+            <label htmlFor="name">Country Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              required
+              placeholder="Country Name"
+            />
+          </div>
+          <div className="formField">
+            <label htmlFor="continent">Pick Continent</label>
+            <select name="continent" id="continent" defaultValue={Continent[0]}>
+              {options.map((option, index) => {
+                return <option key={index}>{option}</option>;
+              })}
+            </select>
+          </div>
+          <div className="formField">
+            <label htmlFor="wcwon">World Cups Won</label>
+            <select name="wcwon" id="wcwon" defaultValue={0}>
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <button type="submit">Create</button>
+        </form>
+      </div>
       {isLoading && <Spinner />}
       {error && !isLoading && <p>No country found in the database.</p>}
-      {!error && !isLoading && <CountriesList countries={countries} />}
+      {!error && !isLoading && (
+        <CountriesList
+          countries={countries}
+          onDeleteCountry={onDeleteCountry}
+        />
+      )}
     </div>
   );
 };

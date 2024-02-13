@@ -125,7 +125,7 @@ const ClubsPage = (props: Props) => {
     setClubs(allClubs.data);
   };
 
-  const onDeleteClubHandler = async (clubs: any) => {
+  const onDeleteClubHandler = async (clubs: any[]) => {
     setClubs(clubs);
   };
   return (

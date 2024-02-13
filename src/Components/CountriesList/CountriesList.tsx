@@ -4,6 +4,7 @@ import Spinner from "../Spinner/Spinner";
 
 type Props = {
   countries: any[];
+  onDeleteCountry?: (countries: any) => {};
 };
 
 const CountriesList = (props: Props) => {
@@ -15,7 +16,11 @@ const CountriesList = (props: Props) => {
       ) : (
         <div className="displayedClubs">
           {props.countries.map((country, idx) => (
-            <Country key={idx} country={country} />
+            <Country
+              key={idx}
+              country={country}
+              onDeleteCountry={props.onDeleteCountry!}
+            />
           ))}
         </div>
       )}
