@@ -11,7 +11,7 @@ const Footballer = (props: Props) => {
     <Card>
       <p>{props.footballer.firstName}</p>
       <p>{props.footballer.lastName}</p>
-      <p>{props.footballer.аge}</p>
+      <p>{props.footballer.age}</p>
       <p>{props.footballer.country?.name}</p>
       <Link to={`/footballers/${props.footballer.id}`}>
         <div className="button">View Footballer</div>
