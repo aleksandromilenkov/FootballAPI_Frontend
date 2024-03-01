@@ -14,7 +14,7 @@ const Footballer = (props: Props) => {
       <p>{props.footballer.age}</p>
       <p>{props.footballer.country?.name}</p>
       <Link to={`/footballers/${props.footballer.id}`}>
-        <div className="button">View Footballers</div>
+        <div className="button">View Footballer</div>
       </Link>
     </Card>
   );
