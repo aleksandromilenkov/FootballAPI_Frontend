@@ -9,6 +9,8 @@ import ClubDetailsPage from "../Pages/ClubDetailsPage/ClubDetailsPage";
 import InternationalDetailsPage from "../Pages/InternationalDetailsPage/InternationalDetailsPage";
 import FootballerDetailsPage from "../Pages/FootballerDetailsPage/FootballerDetailsPage";
 import CreateFootballer from "../Pages/CreateFootballer/CreateFootballer";
+import RegisterPage from "../Pages/RegisterPage/RegisterPage";
+import ProtectedRoute from "./ProtectedRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -17,13 +19,63 @@ export const router = createBrowserRouter([
     children: [
       { path: "", element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
-      { path: "search", element: <SearchPage /> },
-      { path: "clubs", element: <ClubsPage /> },
-      { path: "clubs/:clubId", element: <ClubDetailsPage /> },
-      { path: "countries", element: <InternationalPage /> },
-      { path: "countries/:countryId", element: <InternationalDetailsPage /> },
-      { path: "footballers/:footballerId", element: <FootballerDetailsPage /> },
-      { path: "createFootballer", element: <CreateFootballer /> },
+      { path: "register", element: <RegisterPage /> },
+      {
+        path: "search",
+        element: (
+          <ProtectedRoute>
+            <SearchPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "clubs",
+        element: (
+          <ProtectedRoute>
+            <ClubsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "clubs/:clubId",
+        element: (
+          <ProtectedRoute>
+            <ClubDetailsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "countries",
+        element: (
+          <ProtectedRoute>
+            <InternationalPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "countries/:countryId",
+        element: (
+          <ProtectedRoute>
+            <InternationalDetailsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "footballers/:footballerId",
+        element: (
+          <ProtectedRoute>
+            <FootballerDetailsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "createFootballer",
+        element: (
+          <ProtectedRoute>
+            <CreateFootballer />
+          </ProtectedRoute>
+        ),
+      },
       // {
       //   path: "clubs/:ticker",
       //   element: <ClubsPage />,
