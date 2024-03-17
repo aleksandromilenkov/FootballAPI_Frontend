@@ -67,6 +67,7 @@ export const UserProvider = ({ children }: Props) => {
   };
 
   const loginUser = async (userName: string, password: string) => {
+    console.log("in login user");
     await loginAPI(userName, password)
       .then((res) => {
         if (res) {

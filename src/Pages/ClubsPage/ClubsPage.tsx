@@ -142,7 +142,7 @@ const ClubsPage = (props: Props) => {
             type="text"
             name="country"
             id="country"
-            placeholder="Club Name"
+            placeholder="Club Country"
           />
         </div>
         <div className="formField">
