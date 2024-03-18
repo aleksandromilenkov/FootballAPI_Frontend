@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./SearchPage.css";
 import ClubList from "../../Components/ClubsList/ClubList";
 import FootballersList from "../../Components/FootballersList/FootballersList";
 import { toast } from "react-toastify";
@@ -14,6 +15,7 @@ const SearchPage = (props: Props) => {
   }, []);
   const onClubsSearchSubmit = async (e: any) => {
     e.preventDefault();
+    setFootballers([]);
     const clubs = await axios.get<any[]>(
       `https://localhost:7019/api/club?name=${e.target.search.value}`
     );
@@ -30,6 +32,7 @@ const SearchPage = (props: Props) => {
   };
   const onFootballersSearchSubmit = async (e: any) => {
     e.preventDefault();
+    setClubs([]);
     const footballers = await axios.get<any[]>(
       `https://localhost:7019/api/footballer?lastName=${e.target.search.value}`
     );
@@ -45,10 +48,11 @@ const SearchPage = (props: Props) => {
     setFootballers(footballers.data);
   };
   return (
-    <div>
-      SearchPage
-      <div className="search">
-        <form action="" onSubmit={onClubsSearchSubmit}>
+    <div className="searchPage">
+      <h1>Search it now</h1>
+      <p>You can search either the clubs or the footballers.</p>
+      <div className="searchBars">
+        <form action="" className="searchForm" onSubmit={onClubsSearchSubmit}>
           <input
             type="text"
             name="search"
@@ -57,7 +61,11 @@ const SearchPage = (props: Props) => {
           />
           <button type="submit">Search Club</button>
         </form>
-        <form action="" onSubmit={onFootballersSearchSubmit}>
+        <form
+          action=""
+          className="searchForm"
+          onSubmit={onFootballersSearchSubmit}
+        >
           <input
             type="text"
             name="search"
@@ -67,10 +75,12 @@ const SearchPage = (props: Props) => {
           <button type="submit">Search Footballer</button>
         </form>
       </div>
-      {clubs.length !== 0 && <ClubList isOnSearchPage={true} clubs={clubs} />}
-      {footballers.length !== 0 && (
-        <FootballersList footballers={footballers} />
-      )}
+      <div className="searchOutput">
+        {clubs.length !== 0 && <ClubList isOnSearchPage={true} clubs={clubs} />}
+        {footballers.length !== 0 && (
+          <FootballersList footballers={footballers} />
+        )}
+      </div>
     </div>
   );
 };

@@ -29,14 +29,6 @@ const RegisterPage = (props: Props) => {
       console.log("Password must be at least 4 characters");
       return;
     }
-    // const regex = /^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{2-6}$/;
-    // if (!regex.test(e.target.email.value)) {
-    //   console.log(e.target.email.value);
-    //   emailError.current = "Not a valid email";
-    //   setErrors(true);
-    //   console.log("here ema");
-    //   return;
-    // }
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isValidEmail = regex.test(email);
     if (!isValidEmail) {

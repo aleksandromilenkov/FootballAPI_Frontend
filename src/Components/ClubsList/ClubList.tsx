@@ -14,18 +14,15 @@ type Props = {
 
 const ClubList = (props: Props) => {
   return (
-    <div>
-      ClubList
-      <div className="displayedClubs">
-        {props.clubs.map((club, idx) => (
-          <Club
-            club={club}
-            key={idx}
-            isOnSearchPage={props.isOnSearchPage}
-            onDeleteClubHandler={props.onDeleteClubHandler!}
-          />
-        ))}
-      </div>
+    <div className="displayedClubs">
+      {props.clubs.map((club, idx) => (
+        <Club
+          club={club}
+          key={idx}
+          isOnSearchPage={props.isOnSearchPage}
+          onDeleteClubHandler={props.onDeleteClubHandler!}
+        />
+      ))}
     </div>
   );
 };

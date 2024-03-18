@@ -1,0 +1,60 @@
+.searchPage {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchPage h1 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333; /* Change the color as needed */
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow effect */
+}
+
+.searchBars {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.searchForm {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  display: flex;
+  gap: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.searchForm input[type="text"] {
+  width: calc(100% - 90px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.searchForm button {
+  display: inline-block;
+  width: 80px;
+  background-color: rgba(57, 104, 3, 0.502);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.searchForm button:hover {
+  background-color: #0056b3;
+}
+
+.searchOutput {
+  margin-top: 5rem;
+}

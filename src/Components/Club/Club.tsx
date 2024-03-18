@@ -2,6 +2,7 @@ import React from "react";
 import Card from "../Card/Card";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./Club.css";
 
 type Props = {
   club: any;
@@ -23,18 +24,18 @@ const Club = (props: Props) => {
   };
   return (
     <Card>
-      <p>{props.club.name}</p>
+      <h3>{props.club.name}</h3>
       <Link to={`/clubs/${props.club.id}`}>
-        <div className="button">View Club</div>
+        <button className="button viewButton">View Club</button>
       </Link>
       {!props.isOnSearchPage && (
-        <div
+        <button
           className="button deleteButton"
           onClick={onDeleteClub}
           data-uniqueid={props.club.id}
         >
           Delete Club
-        </div>
+        </button>
       )}
     </Card>
   );
