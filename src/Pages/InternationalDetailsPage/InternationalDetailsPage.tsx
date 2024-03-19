@@ -5,6 +5,7 @@ import Spinner from "../../Components/Spinner/Spinner";
 import FootballersList from "../../Components/FootballersList/FootballersList";
 import axios from "axios";
 import { Continent } from "../../Helpers/EnumTypes";
+import "./InternationalDetailsPage.css";
 const options = Object.values(Continent).filter(
   (value) => isNaN(Number(value)) === true
 );
@@ -49,11 +50,14 @@ const InternationalDetailsPage = (props: Props) => {
   };
   return (
     <div>
-      InternationalDetailsPage
       {country ? (
         <div>
           <div className="createClub">
-            <form action="" onSubmit={onCountryUpdate}>
+            <form
+              action=""
+              className="form-container"
+              onSubmit={onCountryUpdate}
+            >
               <div className="formField">
                 <label htmlFor="name">New Country Name</label>
                 <input
@@ -88,13 +92,16 @@ const InternationalDetailsPage = (props: Props) => {
                   <option>5</option>
                 </select>
               </div>
-              <button type="submit">Update</button>
+              <button type="submit">Update Country</button>
             </form>
           </div>{" "}
-          <h4>Name: {country.name} </h4>
-          <h4>Wc won:{country.wcWon}</h4>
-          <h4>Continent:{Continent[country.continent]}</h4>
-          <FootballersList footballers={country.footballers} />
+          <div className="countryInfo">
+            <h4>Name: {country.name} </h4>
+            <h4>World Cups :{country.wcWon}</h4>
+            <h4>Continent:{Continent[country.continent]}</h4>
+            <h5>Country's players: </h5>
+            <FootballersList footballers={country.footballers} />
+          </div>
         </div>
       ) : (
         <Spinner />

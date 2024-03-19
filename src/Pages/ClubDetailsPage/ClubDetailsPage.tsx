@@ -4,6 +4,7 @@ import Spinner from "../../Components/Spinner/Spinner";
 import FootballersList from "../../Components/FootballersList/FootballersList";
 import axios from "axios";
 import { League } from "../../Helpers/EnumTypes";
+import "./ClubDetailsPage.css";
 
 type Props = {};
 const options = Object.values(League).filter(
@@ -60,11 +61,10 @@ const ClubDetailsPage = (props: Props) => {
 
   return (
     <div>
-      ClubDetailsPage
       {club && countries ? (
         <div>
           <div className="updateClub">
-            <form action="" onSubmit={onUpdateClub}>
+            <form action="" className="form-container" onSubmit={onUpdateClub}>
               <div className="formField">
                 <label htmlFor="name">New Name</label>
                 <input
@@ -100,15 +100,14 @@ const ClubDetailsPage = (props: Props) => {
                   })}
                 </select>
               </div>
-              <button type="submit">Update</button>
+              <button type="submit">Update Club</button>
             </form>
           </div>
-
-          <button>Update The Club</button>
-          <div>
+          <div className="clubInfo">
             <h1>{club.name}</h1>
             <h4>{League[club.league]}</h4>
             <h4>{club.country?.name}</h4>
+            <h5>Club's players: </h5>
             <FootballersList footballers={club.footballers} />
           </div>
         </div>

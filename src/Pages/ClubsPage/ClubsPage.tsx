@@ -3,6 +3,8 @@ import ClubList from "../../Components/ClubsList/ClubList";
 import axios from "axios";
 import { League } from "../../Helpers/EnumTypes";
 import { toast } from "react-toastify";
+import "./ClubsPage.css";
+import Spinner from "../../Components/Spinner/Spinner";
 
 type Props = {};
 
@@ -14,22 +16,29 @@ const ClubsPage = (props: Props) => {
   const [clubs, setClubs] = useState<any[]>([]);
   const [error, setError] = useState<boolean>(false);
   const [countries, setCountries] = useState<any>([]);
+  const [searchClub, setSearchClub] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
     const getClubsInit = async () => {
       document.title = "Football App - Clubs";
-      const data = await axios.get<any[]>(`https://localhost:7019/api/club`);
-      setClubs(data.data);
+      // const data = await axios.get<any[]>(`https://localhost:7019/api/club`);
+      // setClubs(data.data);
+      setIsLoading(true);
       const countries = await axios.get<any>(
         `https://localhost:7019/api/country/`
       );
       console.log(countries);
       setCountries(countries.data);
+      setIsLoading(false);
       setError(false);
     };
     try {
+      setIsLoading(true);
       getClubsInit();
+      setIsLoading(false);
     } catch (err) {
       setError(true);
+      setIsLoading(false);
     }
   }, []);
   // const onChangeLeague = async (e: any) => {
@@ -50,6 +59,9 @@ const ClubsPage = (props: Props) => {
   // };
   const onClubSearchSubmit = async (e: any) => {
     e.preventDefault();
+    console.log("LOADING: ", isLoading);
+    setIsLoading(true);
+    console.log("LOADING: ", isLoading);
     // const queryParams = {name:"", country:"", league:null|string, sortBy:null, isDescending:false};
     let name: string | null = null;
     let country: string | null = null;
@@ -68,19 +80,6 @@ const ClubsPage = (props: Props) => {
     if (!e.target.sortBy.value.startsWith("Sort")) {
       sortBy = e.target.sortBy.value;
     }
-    console.log("Name: ", name);
-    console.log("Country: ", country);
-    console.log("League: ", league);
-    console.log("sortBy: ", sortBy);
-    console.log(e.target.descending.value);
-    // console.log(
-    //   `https://localhost:7019/api/club?name=${name}&country=${country}&league=${league}&sortBy=${sortBy}&isDescending=${isDescending}`
-    // );
-    console.log(
-      `https://localhost:7019/api/club?name=${name}&countryName=${country}&sortBy=${sortBy}&isDescending=${isDescending}${
-        league !== null ? "&" + league : ""
-      }`
-    );
     const filteredClubs = await axios.get<any[]>(
       `https://localhost:7019/api/club?name=${name}&countryName=${country}&sortBy=${sortBy}&isDescending=${isDescending}${
         league !== null ? "&league=" + league : ""
@@ -89,18 +88,17 @@ const ClubsPage = (props: Props) => {
     if (!filteredClubs.data || filteredClubs.data.length === 0) {
       toast.error("Can't find that club in the database");
       setError(true);
-      console.log(error);
+      setIsLoading(false);
+      console.log("LOADING: ", isLoading);
       return;
     }
     setClubs(filteredClubs.data);
+    setIsLoading(false);
     setError(false);
-    console.log(error);
+    console.log("LOADING: ", isLoading);
   };
   const onCreateClub = async (e: any) => {
     e.preventDefault();
-    console.log(e.target.country.value!);
-    console.log(e.target.name.value);
-    console.log(e.target.league.value);
     const countrySelected = await axios.get<any, any>(
       `https://localhost:7019/api/country?name=${e.target.country.value}`
     );
@@ -117,6 +115,11 @@ const ClubsPage = (props: Props) => {
       },
     });
     console.log(createdClub);
+    if (createdClub.status.toString().startsWith("2")) {
+      toast.success("Club succesfully created.");
+    }
+    e.target.name.value = "";
+    e.target.league.value = "";
     const allClubs = await axios({
       method: "get",
       url: `https://localhost:7019/api/club`,
@@ -129,49 +132,75 @@ const ClubsPage = (props: Props) => {
     setClubs(clubs);
   };
   return (
-    <div>
-      ClubsPage
-      <form action="" onSubmit={onClubSearchSubmit}>
-        <div className="formField">
-          <label htmlFor="name"></label>
-          <input type="text" name="name" id="name" placeholder="Club Name" />
-        </div>
-        <div className="formField">
-          <label htmlFor="country"></label>
-          <input
-            type="text"
-            name="country"
-            id="country"
-            placeholder="Club Country"
-          />
-        </div>
-        <div className="formField">
-          <select name="league">
-            <option>All Leagues</option>
-            {options.map((option, index) => {
-              return <option key={index}>{option}</option>;
-            })}
-          </select>
-        </div>
-        <div className="formField">
-          <select name="sortBy">
-            <option>Sort By:</option>
-            <option>Name</option>
-            <option>CountryName</option>
-          </select>
-        </div>
-        <div className="formField">
-          <label htmlFor="descending">Order by Descending</label>
-          <input
-            type="checkbox"
-            id="descending"
-            name="descending"
-            defaultChecked={false}
-          />
-        </div>
-        <button type="submit">Search Club</button>
-      </form>
-      {countries.length !== 0 && (
+    <div className="clubsPage">
+      <div className="actions">
+        {!searchClub ? (
+          <>
+            <p>
+              Want to search for a club?
+              <button onClick={() => setSearchClub(true)}>
+                Search Club Here
+              </button>{" "}
+            </p>
+          </>
+        ) : (
+          <>
+            <p>
+              Want to create a new club?{" "}
+              <button onClick={() => setSearchClub(false)}>
+                Create Club Here
+              </button>
+            </p>
+          </>
+        )}
+      </div>
+      {searchClub && (
+        <form
+          action=""
+          className="form-container"
+          onSubmit={onClubSearchSubmit}
+        >
+          <div className="formField">
+            <label htmlFor="name">Club Name</label>
+            <input type="text" name="name" id="name" placeholder="Club Name" />
+          </div>
+          <div className="formField">
+            <label htmlFor="country">Club Country</label>
+            <input
+              type="text"
+              name="country"
+              id="country"
+              placeholder="Club Country"
+            />
+          </div>
+          <div className="formField">
+            <select name="league">
+              <option>All Leagues</option>
+              {options.map((option, index) => {
+                return <option key={index}>{option}</option>;
+              })}
+            </select>
+          </div>
+          <div className="formField">
+            <select name="sortBy">
+              <option>Sort By:</option>
+              <option>Name</option>
+              <option>CountryName</option>
+            </select>
+          </div>
+          <div className="formField orderByFormField">
+            <label htmlFor="descending">Order by Descending</label>
+            <input
+              type="checkbox"
+              id="descending"
+              name="descending"
+              defaultChecked={false}
+            />
+          </div>
+          <button type="submit">Search Club</button>
+        </form>
+      )}
+      {countries.length !== 0 && !searchClub && (
         <div className="createClub">
           <form action="" onSubmit={onCreateClub}>
             <div className="formField">
@@ -204,8 +233,9 @@ const ClubsPage = (props: Props) => {
           </form>
         </div>
       )}
+      {isLoading && <Spinner />}
       {error && <p>No club found in the database with that search data</p>}
-      {!error && (
+      {!error && clubs && (
         <ClubList
           isOnSearchPage={false}
           clubs={clubs}

@@ -68,9 +68,12 @@ const CreateFootballer = (props: Props) => {
   };
   return (
     <div>
-      CreateFootballer
       {clubs.length !== 0 && countries.length !== 0 && !success && (
-        <form action="" onSubmit={onFootballerCreate}>
+        <form
+          action=""
+          className="form-container"
+          onSubmit={onFootballerCreate}
+        >
           <div className="formField">
             <label htmlFor="firstName">First Name</label>
             <input

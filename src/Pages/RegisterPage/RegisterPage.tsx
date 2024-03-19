@@ -44,9 +44,8 @@ const RegisterPage = (props: Props) => {
   };
   return (
     <div>
-      RegisterPage
       <p>{errors.length > 0 && errors}</p>
-      <form action="" onSubmit={signupHandler}>
+      <form action="" className="form-container" onSubmit={signupHandler}>
         <div className="formSection">
           <label htmlFor="username">Username</label>
           <input

@@ -5,6 +5,7 @@ import { Continent } from "../../Helpers/EnumTypes";
 import Spinner from "../../Components/Spinner/Spinner";
 import { toast } from "react-toastify";
 import { count } from "console";
+import "./InternationalPage.css";
 
 type Props = {};
 const options = Object.values(Continent).filter(
@@ -14,25 +15,27 @@ const options = Object.values(Continent).filter(
 const InternationalPage = (props: Props) => {
   const [countries, setCountries] = useState<any[]>([]);
   const [error, setError] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  useEffect(() => {
-    const getCountriesInit = async () => {
-      document.title = "Football App - Countries";
-      setIsLoading(true);
-      const data = await axios.get<any[]>(`https://localhost:7019/api/country`);
-      console.log(data.data);
-      if (!data.data || data.data.length === 0) {
-        setError(true);
-        setIsLoading(false);
-        return;
-      }
-      setCountries(data.data);
-    };
-    getCountriesInit();
-    setIsLoading(false);
-  }, []);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [searchCountry, setSearchCountry] = useState<boolean>(true);
+  // useEffect(() => {
+  //   const getCountriesInit = async () => {
+  //     document.title = "Football App - Countries";
+  //     setIsLoading(true);
+  //     const data = await axios.get<any[]>(`https://localhost:7019/api/country`);
+  //     console.log(data.data);
+  //     if (!data.data || data.data.length === 0) {
+  //       setError(true);
+  //       setIsLoading(false);
+  //       return;
+  //     }
+  //     setCountries(data.data);
+  //   };
+  //   getCountriesInit();
+  //   setIsLoading(false);
+  // }, []);
   const onCountrySearchSubmit = async (e: any) => {
     e.preventDefault();
+    setIsLoading(true);
     let name: string | null = null;
     let continent: string | null = null;
     let wcWon: string | null = null;
@@ -50,7 +53,6 @@ const InternationalPage = (props: Props) => {
     if (!e.target.sortBy.value.startsWith("Sort")) {
       sortBy = e.target.sortBy.value;
     }
-    setIsLoading(true);
     const isName = `name=${name !== null ? name : null}`;
     console.log(
       `https://localhost:7019/api/country?${isName}${
@@ -95,6 +97,12 @@ const InternationalPage = (props: Props) => {
       },
     });
     console.log(createdCountry);
+    if (createdCountry.status.toString().startsWith("2")) {
+      toast.success("Country successfully created.");
+    }
+    e.target.name.value = "";
+    e.target.continent.value = "";
+    e.target.wcwon.value = "";
     const allCountries = await axios({
       method: "get",
       url: `https://localhost:7019/api/country`,
@@ -103,53 +111,84 @@ const InternationalPage = (props: Props) => {
     setCountries(allCountries.data);
   };
   return (
-    <div>
-      InternationalPage
-      <form action="" onSubmit={onCountrySearchSubmit}>
-        <div className="formField">
-          <label htmlFor="name"></label>
-          <input type="text" name="name" id="name" placeholder="Country Name" />
-        </div>
-        <div className="formField">
-          <select name="continent">
-            <option>All Continents</option>
-            {options.map((option, index) => {
-              return <option key={index}>{option}</option>;
-            })}
-          </select>
-        </div>
-        <div className="formField">
-          <label htmlFor="wcwon">World Cups Won</label>
-          <select name="wcwon" id="wcwon">
-            <option>All Countries</option>
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div className="formField">
-          <select name="sortBy">
-            <option>Sort By:</option>
-            <option>Name</option>
-            <option>WorldCupsWon</option>
-          </select>
-        </div>
-        <div className="formField">
-          <label htmlFor="descending">Order by Descending</label>
-          <input
-            type="checkbox"
-            id="descending"
-            name="descending"
-            defaultChecked={false}
-          />
-        </div>
-        <button type="submit">Search Country</button>
-      </form>
-      <div className="createClub">
-        <form action="" onSubmit={onCreateCountry}>
+    <div className="countriesPage">
+      <div className="actions">
+        {!searchCountry ? (
+          <>
+            <p>
+              Want to search for a country?
+              <button onClick={() => setSearchCountry(true)}>
+                Search Country Here
+              </button>{" "}
+            </p>
+          </>
+        ) : (
+          <>
+            <p>
+              Want to create a new country?{" "}
+              <button onClick={() => setSearchCountry(false)}>
+                Create Country Here
+              </button>
+            </p>
+          </>
+        )}
+      </div>
+      {searchCountry && (
+        <form
+          action=""
+          className="form-container"
+          onSubmit={onCountrySearchSubmit}
+        >
+          <div className="formField">
+            <label htmlFor="name"></label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Country Name"
+            />
+          </div>
+          <div className="formField">
+            <select name="continent">
+              <option>All Continents</option>
+              {options.map((option, index) => {
+                return <option key={index}>{option}</option>;
+              })}
+            </select>
+          </div>
+          <div className="formField">
+            <label htmlFor="wcwon">World Cups Won</label>
+            <select name="wcwon" id="wcwon">
+              <option>All Countries</option>
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div className="formField">
+            <select name="sortBy">
+              <option>Sort By:</option>
+              <option>Name</option>
+              <option>WorldCupsWon</option>
+            </select>
+          </div>
+          <div className="formField orderByFormField">
+            <label htmlFor="descending">Order by Descending</label>
+            <input
+              type="checkbox"
+              id="descending"
+              name="descending"
+              defaultChecked={false}
+            />
+          </div>
+          <button type="submit">Search Country</button>
+        </form>
+      )}
+      {!searchCountry && (
+        <form action="" className="form-container" onSubmit={onCreateCountry}>
           <div className="formField">
             <label htmlFor="name">Country Name</label>
             <input
@@ -181,10 +220,11 @@ const InternationalPage = (props: Props) => {
           </div>
           <button type="submit">Create</button>
         </form>
-      </div>
+      )}
+      <div className="createClub"></div>
       {isLoading && <Spinner />}
       {error && !isLoading && <p>No country found in the database.</p>}
-      {!error && !isLoading && (
+      {!error && !isLoading && searchCountry && (
         <CountriesList
           countries={countries}
           onDeleteCountry={onDeleteCountry}

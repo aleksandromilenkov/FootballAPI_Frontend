@@ -69,10 +69,13 @@ const FootballerDetailsPage = (props: Props) => {
   };
   return (
     <div>
-      FootballerDetailsPage
       {footballer ? (
         <div>
-          <form action="" onSubmit={onFootballerUpdate}>
+          <form
+            action=""
+            className="form-container"
+            onSubmit={onFootballerUpdate}
+          >
             <div className="formField">
               <label htmlFor="firstName">First Name</label>
               <input
@@ -143,16 +146,6 @@ const FootballerDetailsPage = (props: Props) => {
             </div>
             <button type="submit">Update Footballer</button>
           </form>
-          <h1>First Name: {footballer.firstName}</h1>
-          <h1>Last Name: {footballer.lastName}</h1>
-          <h1>Age: {footballer.age}</h1>
-          <h4>Club: {footballer.club?.name}</h4>
-          <h4>
-            Country:{" "}
-            {footballer?.country
-              ? footballer.country.name
-              : "Doesn't play for any Country"}
-          </h4>
         </div>
       ) : (
         <Spinner />

@@ -10,7 +10,6 @@ const HomePage = (props: Props) => {
   return (
     <div>
       <Hero />
-      HomePage
     </div>
   );
 };

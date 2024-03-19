@@ -2,6 +2,7 @@ import React from "react";
 import Card from "../Card/Card";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./Country.css";
 
 type Props = {
   country: any;

@@ -27,10 +27,9 @@ const LoginPage = (props: Props) => {
   };
   return (
     <div>
-      LoginPage
       {errorMessage.length > 0 && errorMessage}
-      <form action="" onSubmit={loginHandler}>
-        <div className="formSection">
+      <form action="" className="form-container" onSubmit={loginHandler}>
+        <div className="formField">
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -39,7 +38,7 @@ const LoginPage = (props: Props) => {
             placeholder="username"
           />
         </div>
-        <div className="formSection">
+        <div className="formField">
           <label htmlFor="password">Password</label>
           <input
             type="password"

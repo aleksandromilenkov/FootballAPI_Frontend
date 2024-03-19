@@ -1,0 +1,8 @@
+.button {
+  background-color: rgba(153, 232, 62, 0.5);
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: #ffffff;
+}

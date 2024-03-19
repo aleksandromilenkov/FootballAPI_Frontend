@@ -10,20 +10,15 @@ type Props = {
 const CountriesList = (props: Props) => {
   return (
     <div>
-      InternationalList
-      {props.countries.length === 0 ? (
-        <Spinner />
-      ) : (
-        <div className="displayedClubs">
-          {props.countries.map((country, idx) => (
-            <Country
-              key={idx}
-              country={country}
-              onDeleteCountry={props.onDeleteCountry!}
-            />
-          ))}
-        </div>
-      )}
+      <div className="displayedClubs">
+        {props.countries.map((country, idx) => (
+          <Country
+            key={idx}
+            country={country}
+            onDeleteCountry={props.onDeleteCountry!}
+          />
+        ))}
+      </div>
     </div>
   );
 };

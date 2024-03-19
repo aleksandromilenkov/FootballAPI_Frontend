@@ -1,0 +1,30 @@
+.clubInfo {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 2rem;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.clubInfo h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.clubInfo h4 {
+  font-size: 18px;
+  color: #333333;
+  margin-bottom: 5px;
+}
+
+.clubInfo h5 {
+  font-size: 16px;
+  color: #555555;
+  margin-bottom: 10px;
+}
