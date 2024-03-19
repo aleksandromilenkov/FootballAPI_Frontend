@@ -9,7 +9,6 @@ type Props = {
 const FootballersList = (props: Props) => {
   return (
     <div>
-      FootballersList
       {props.footballers.length === 0 ? (
         <p>No footballers found.</p>
       ) : (

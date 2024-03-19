@@ -1,0 +1,9 @@
+button.viewButton {
+  background-color: rgb(104, 171, 48);
+}
+
+.footballerProperty {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+}
