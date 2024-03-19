@@ -10,15 +10,15 @@ const options = Object.values(Position).filter(
 const CreateFootballer = (props: Props) => {
   const [clubs, setClubs] = useState<any[]>([]);
   const [countries, setCountries] = useState<any[]>([]);
-  const [success, setSuccess] = useState<boolean>(false);
   useEffect(() => {
     const getClubInit = async () => {
       const data = await axios.get<any>(`https://localhost:7019/api/club`);
       setClubs(data.data);
       document.title = "Football App - Create Footballer";
       const countries = await axios.get<any>(
-        `https://localhost:7019/api/country/`
+        `https://localhost:7019/api/country/?pageSize=300`
       );
+      console.log(countries);
       setCountries(countries.data);
     };
     getClubInit();
@@ -50,10 +50,8 @@ const CreateFootballer = (props: Props) => {
       console.log(createdFootballer.status.toString());
       if (createdFootballer.status.toString().startsWith("2")) {
         toast.success("Footballer successfully created.");
-        setSuccess(true);
       } else {
         toast.error("Can't create footballer!");
-        setSuccess(false);
       }
       e.target.firstName.value = "";
       e.target.lastName.value = "";
@@ -63,12 +61,11 @@ const CreateFootballer = (props: Props) => {
       e.target.club.value = "";
     } catch (err: any) {
       toast.error("Can't create footballer!");
-      setSuccess(false);
     }
   };
   return (
     <div>
-      {clubs.length !== 0 && countries.length !== 0 && !success && (
+      {clubs.length !== 0 && countries.length !== 0 && (
         <form
           action=""
           className="form-container"
@@ -130,11 +127,6 @@ const CreateFootballer = (props: Props) => {
           </div>
           <button type="submit">Create Footballer</button>
         </form>
-      )}
-      {success && (
-        <div className="successfullyCreatedFootballer">
-          <p>Footballer successfully created.</p>
-        </div>
       )}
     </div>
   );

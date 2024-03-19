@@ -24,7 +24,7 @@ const ClubDetailsPage = (props: Props) => {
       setClub(data.data);
       document.title = "Football App - " + data.data.name;
       const countries = await axios.get<any>(
-        `https://localhost:7019/api/country/`
+        `https://localhost:7019/api/country/?pageSize=300`
       );
       console.log(countries);
       setCountries(countries.data);

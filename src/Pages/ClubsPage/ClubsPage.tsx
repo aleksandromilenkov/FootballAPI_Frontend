@@ -25,7 +25,7 @@ const ClubsPage = (props: Props) => {
       // setClubs(data.data);
       setIsLoading(true);
       const countries = await axios.get<any>(
-        `https://localhost:7019/api/country/`
+        `https://localhost:7019/api/country/?pageSize=300`
       );
       console.log(countries);
       setCountries(countries.data);
@@ -120,12 +120,12 @@ const ClubsPage = (props: Props) => {
     }
     e.target.name.value = "";
     e.target.league.value = "";
-    const allClubs = await axios({
-      method: "get",
-      url: `https://localhost:7019/api/club`,
-      headers: { "Content-Type": "application/json" },
-    });
-    setClubs(allClubs.data);
+    // const allClubs = await axios({
+    //   method: "get",
+    //   url: `https://localhost:7019/api/club`,
+    //   headers: { "Content-Type": "application/json" },
+    // });
+    // setClubs(allClubs.data);
   };
 
   const onDeleteClubHandler = async (clubs: any[]) => {
@@ -235,7 +235,7 @@ const ClubsPage = (props: Props) => {
       )}
       {isLoading && <Spinner />}
       {error && <p>No club found in the database with that search data</p>}
-      {!error && clubs && (
+      {!error && clubs && searchClub && (
         <ClubList
           isOnSearchPage={false}
           clubs={clubs}
