@@ -1,5 +1,5 @@
 #FootballAPI_Frontend  
-This is the frontend part of the FootballApplication.  
+This is the front-end part of the FootballApplication.  
 Firstly I built the API: https://github.com/aleksandromilenkov/FootballAPI with ASP.NET Web API  
 With the help of React.js and TypeScript I built this app where you can Signup, Login, Logout, Search for Footballers, Search for Clubs, Search for Countries, Create all of the previous mentioned, Update, Delete...   
 The purpouse of this app is simply to search Football Country Represetnations, Clubs, Players and see their details like where they Play, age, Country and more.   
